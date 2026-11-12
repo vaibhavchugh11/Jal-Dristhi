@@ -1,0 +1,2 @@
+device_id,sensor,last_calibrated,method,next_due,notes
+ESP32-01,pH,2026-01-01,"Two-point buffer 4.01/7.00",2026-04-01,"Example row - replace with your own record"
