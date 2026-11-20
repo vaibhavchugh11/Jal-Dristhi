@@ -3,41 +3,41 @@
     "sample": {
       "name": "Sample",
       "site_id": "DEMO-SITE-1",
-      "relation": "",
+      "relation": "Approximately 50 metres downstream of the industrial discharge outlet.",
       "notes": "",
       "limits": {
         "ph": {
           "min": 6.5,
           "max": 8.5,
           "basis": "instant",
-          "reference": ""
+          "reference": "All significant changes must be investigated by the environmental monotoring department, if abnormal readings persist the company must inspect its wastewater treatement processes,"
         },
         "turbidity": {
-          "min": 0.0,
-          "max": 25.0,
+          "min": 1.0,
+          "max": 5.0,
           "basis": "instant",
           "reference": ""
         },
         "tds": {
-          "min": 200.0,
-          "max": 700.0,
+          "min": null,
+          "max": 1000.0,
           "basis": "instant",
           "reference": ""
         },
         "do": {
-          "min": 4.0,
-          "max": 12.0,
+          "min": 1.0,
+          "max": 5.0,
           "basis": "instant",
           "reference": ""
         },
         "temperature": {
           "min": 20.0,
-          "max": 32.0,
+          "max": 35.0,
           "basis": "instant",
           "reference": ""
         }
       },
-      "updated_at": "2026-11-12T11:29:53Z"
+      "updated_at": "2026-11-19T14:19:17Z"
     }
   }
 }
