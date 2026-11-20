@@ -453,15 +453,30 @@ def build_report(df, site, period, profile, kind, user, models, is_demo=False, n
     doc.append({"t": "p", "text": "These models are trained only on this site's own readings, in time order. Each is then checked on a later part of the same data against simple baselines (no change, typical day, usual value for the hour). "
                                   "A trained model is used only if it clearly beats them; otherwise the simple baseline is used and the report says so."})
     doc.append({"t": "table", "head": ["Model", "Checked on", "Result on later data"], "rows": model_rows(models, kind), "small": True, "widths": [1.5, 1.2, 4.6], "csv": "model_checks"})
-    doc.append({"t": "h2", "text": sec["title"]})
-    for t in sec["paras"]:
+
+    for sec in ir.sections(ins, with_images=True, include_whi=False):
+        doc.append({"t": "h2", "text": sec["title"]})
+
+        for t in sec["paras"]:
             doc.append({"t": "p", "text": t})
+
         if sec["bullets"]:
             doc.append({"t": "bullets", "items": sec["bullets"]})
+
         if sec.get("image"):
             doc.append({"t": "img", "bytes": sec["image"], "caption": ""})
+
         if sec.get("equations"):
-            doc.append({"t": "p", "small": True, "text": "SINDy equations (change in one hour, standardised units; sin24 and cos24 are the time of day): " + " | ".join(f"{ir.LABEL.get(k, k)}: {v}" for k, v in sec["equations"].items())})
+            doc.append({
+                "t": "p",
+                "small": True,
+                "text": "SINDy equations (change in one hour, standardised units; sin24 and cos24 are the time of day): "
+                + " | ".join(
+                    f"{ir.LABEL.get(k, k)}: {v}"
+                    for k, v in sec["equations"].items()
+                )
+            })
+
     sd = models.get("sindy", {})
     ex = chart_expected(h[h.index <= end], sd)
     if ex:
