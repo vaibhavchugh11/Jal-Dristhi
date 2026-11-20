@@ -13,7 +13,6 @@ PERIOD_HOURS = [24, 168, 336]
 
 def render(ctx):
     lang = ctx["lang"]
-    st.markdown(f'<div class="jd-prov" role="note">{c.esc(t("firm_disclaimer", lang))}</div>', unsafe_allow_html=True)
     if ctx["is_demo"]:
         st.caption(t("firm_demo_note", lang))
     profiles = compliance.load_profiles()

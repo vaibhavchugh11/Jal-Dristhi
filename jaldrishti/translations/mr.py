@@ -1,4 +1,4 @@
-
+"""Marathi strings (DRAFT). Needs review by a fluent Marathi speaker before public use."""
 
 STRINGS = {
     "app_name": "JalDrishti",

@@ -147,7 +147,7 @@ STRINGS = {
     "strength_moderate": "Moderate",
     "strength_high": "High",
     "strength_note": "Strength describes how far readings are from recent normal. It is not the probability that pollution has occurred.",
-    "no_ml_model": "No machine-learning model is integrated in this version. Flags come from the statistical baseline described above.",
+
 
     "history_heading": "Historical readings",
     "date_range": "Date range",
@@ -273,8 +273,7 @@ STRINGS = {
     "tab_firm_limits": "Company limits",
     "tab_firm_screening": "Limit screening",
     "tab_firm_report": "Compliance report",
-    "firm_disclaimer": "Screening only. This compares the buoy's readings with the limits you enter. It is not a legal compliance decision, and the buoy measures the water where it floats, not your discharge point. No AI model is used: results come from fixed comparison rules.",
-    "firm_profile": "Company profile",
+        "firm_profile": "Company profile",
     "firm_new": "New profile",
     "firm_select": "Saved profile",
     "firm_name": "Company name",
