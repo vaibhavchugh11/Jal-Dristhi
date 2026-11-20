@@ -251,6 +251,7 @@ def chart_expected(h, sd):
 
 # ------------------------------------------------------------------ the report
 
+
 def model_rows(m, kind):
     rows = []
     d = m.get("do", {})
@@ -258,28 +259,28 @@ def model_rows(m, kind):
         sc = d["scores"]
         bb, bm = d["best_baseline"], d["best_model"]
         rows.append(["Dissolved oxygen forecast (6 h)", f"{d['rows']['test']} later hours",
-                     f"{bm.replace('_', ' ')} {sc[bm]['test']} vs {bb.replace('_', ' ')} {sc[bb]['test']} (saturation points, lower is better)",
-                     ("Trained model" if d["adopted_model"] else "Simple baseline")])
+                     f"{bm.replace('_', ' ')} {sc[bm]['test']} vs {bb.replace('_', ' ')} {sc[bb]['test']} (saturation points, lower is better)"])
     else:
-        rows.append(["Dissolved oxygen forecast (6 h)", "-", d.get("message", "Collecting data."), "Not used yet"])
+        rows.append(["Dissolved oxygen forecast (6 h)", "-", d.get("message", "Collecting data.")])
+
     t = m.get("turb", {})
     if t.get("status") == "ready":
         sc = t["scores"]
         rows.append(["Turbidity rise warning (6 h)", f"{t['events']['test']} rises in later data",
-                     f"{t['used']} PR-AUC {sc[t['used']]['test']} vs simple rule {sc['rule']['test']} (guessing {t['base_rate_test']})",
-                     ("Trained model" if t["adopted_model"] else "Simple rule")])
+                     f"{t['used']} PR-AUC {sc[t['used']]['test']} vs simple rule {sc['rule']['test']} (guessing {t['base_rate_test']})"])
     else:
-        rows.append(["Turbidity rise warning (6 h)", "-", t.get("message", "Collecting data."), "Not used yet"])
+        rows.append(["Turbidity rise warning (6 h)", "-", t.get("message", "Collecting data.")])
+
     s = m.get("sindy", {})
     if s.get("status") == "ready":
         te = s["test_error"]
         best = min(("persistence", "daily_shape", "hourly_mean"), key=lambda k: te[k])
-        rows.append(["SINDy daily pattern", f"{s['test_starts']} look-aheads", f"SINDy {te['sindy']} vs {best.replace('_', ' ')} {te[best]} (lower is better)",
-                     ("Beats the baselines" if s["beats_baselines"] else "Describes the pattern; does not beat the baselines")])
+        rows.append(["SINDy daily pattern", f"{s['test_starts']} look-aheads",
+                     f"SINDy {te['sindy']} vs {best.replace('_', ' ')} {te[best]} (lower is better)"])
     else:
-        rows.append(["SINDy daily pattern", "-", s.get("message", "Collecting data."), "Not used yet"])
-    return rows
+        rows.append(["SINDy daily pattern", "-", s.get("message", "Collecting data.")])
 
+    return rows
 
 def build_report(df, site, period, profile, kind, user, models, is_demo=False, now=None, extra_policies=None):
     start, end, label = period
@@ -451,9 +452,7 @@ def build_report(df, site, period, profile, kind, user, models, is_demo=False, n
     doc.append({"t": "h1", "text": "5. Insights from the trained models"})
     doc.append({"t": "p", "text": "These models are trained only on this site's own readings, in time order. Each is then checked on a later part of the same data against simple baselines (no change, typical day, usual value for the hour). "
                                   "A trained model is used only if it clearly beats them; otherwise the simple baseline is used and the report says so."})
-    doc.append({"t": "table", "head": ["Model", "Checked on", "Result on later data", "Used in this report"], "rows": model_rows(models, kind), "small": True, "widths": [1.5, 1.2, 3.2, 1.4], "csv": "model_checks"})
-    lim_do = ((prof or {}).get("limits", {}).get("do") or {}).get("lo")
-    for sec in ir.sections(ins, lim_do, with_images=True, include_whi=False):
+    doc.append({"t": "table", "head": ["Model", "Checked on", "Result on later data"], "rows": model_rows(models, kind), "small": True, "widths": [1.5, 1.2, 4.6], "csv": "model_checks"})
         doc.append({"t": "h2", "text": sec["title"]})
         for t in sec["paras"]:
             doc.append({"t": "p", "text": t})
